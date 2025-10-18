@@ -40,14 +40,16 @@
                         const taskItem = document.createElement('li');
                         taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
                         
-                        taskItem.innerHTML = `
-                            <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
-                            <span class="task-text">${task.text}</span>
-                            <button class="delete-btn">Delete</button>
-                        `;
+                          taskItem.innerHTML = `
+                            <input type="checkbox" class="task-checkbox" ${task.completed ? 'completed' : ''}
+                            <span>${task.text}</span>
+                            <button class="edit-btn">✏️<button>
+                            <button class="delete-btn">X<button>
+                        `
                         
                         const checkbox = taskItem.querySelector('.task-checkbox');
                         const deleteBtn = taskItem.querySelector('.delete-btn');
+                        const editBtn = taskItem.querySelector('.edit-btn');
                         
                         checkbox.addEventListener('change', function() {
                             task.completed = this.checked;
@@ -62,6 +64,18 @@
                             renderTasks();
                             updateStats();
                         });
+
+                        editBtn.addEventListener('click', () =>{
+                           const newEditInput = prompt("edit the task:", task.text)
+                           const addNewEdit = newEditInput.trim();
+                           if(addNewEdit === ""){
+                             alert("please enter a task!")
+                             return;
+                           }
+                           task.text = addNewEdit; 
+                           saveTasks();
+                           renderTasks();
+                        })
                         
                         taskList.appendChild(taskItem);
                     });

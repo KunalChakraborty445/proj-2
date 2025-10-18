@@ -87,55 +87,98 @@
             color: white;
         }
         
-        .task-list {
-            list-style-type: none;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .task-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            animation: fadeIn 0.3s;
-        }
-        
-        .task-item:last-child {
-            border-bottom: none;
-        }
-        
-        .task-text {
-            flex: 1;
-            margin-left: 10px;
-            font-size: 16px;
-        }
-        
-        .task-item.completed .task-text {
-            text-decoration: line-through;
-            color: #888;
-        }
-        
-        .task-checkbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-        
-        .delete-btn {
-            background-color: #ff4757;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s;
-        }
-        
-        .delete-btn:hover {
-            background-color: #ff3742;
-        }
+        /* List container: remove default list padding and ensure comfortable spacing */
+.task-list {
+  list-style: none;
+  padding-left: 0;   /* ensure no extra left padding */
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Each task row layout */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* consistent spacing between elements */
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Make task text take remaining space and truncate long text */
+.task-text {
+  flex: 1;
+  margin-left: 0;        /* removed since we use gap */
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Custom checkbox (works cross-browser better than setting background-color) */
+.task-checkbox {
+  /* make native checkbox invisible but keep it accessible */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+/* checked state shows a tick and change color */
+.task-checkbox:checked {
+  background-color: #6a11cb; /* theme color */
+  border-color: #6a11cb;
+}
+.task-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Buttons spacing and consistent look */
+.edit-btn,
+.delete-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.delete-btn {
+  background-color: #ff4757;
+  color: white;
+  padding: 6px 10px;
+}
+.delete-btn:hover {
+  background-color: #ff3742;
+}
+
+/* Focus outlines for keyboard users */
+.task-checkbox:focus,
+.edit-btn:focus,
+.delete-btn:focus {
+  outline: 3px solid rgba(106,17,203,0.25);
+  outline-offset: 2px;
+}
         
         .empty-state {
             text-align: center;
