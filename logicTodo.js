@@ -36,7 +36,7 @@
 
                 setTimeout(() => {
                     popup.remove();
-                }, 1000);
+                }, 2000);
             }
             
             function updateStats() {
