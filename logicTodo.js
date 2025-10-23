@@ -12,22 +12,20 @@
             let points = parseInt(localStorage.getItem('points')) || 0;
             let currentFilter = 'all';
             
-            // Save tasks to localStorage
+
             function saveTasks() {
                 localStorage.setItem('tasks', JSON.stringify(tasks));
             }
 
-            // Save points to localStorage
+        
             function savePoints() {
                 localStorage.setItem('points', points);
             }
 
-            // Update points display
             function updatePointsDisplay() {
                 pointsDisplay.textContent = `🏆 ${points} Points`;
             }
 
-            // Show points earned animation
             function showPointsAnimation(pointsEarned) {
                 const popup = document.createElement('div');
                 popup.className = 'points-popup';
@@ -76,22 +74,22 @@
                         const deleteBtn = taskItem.querySelector('.delete-btn');
                         const editBtn = taskItem.querySelector('.edit-btn');
                         
-                        // Handle checkbox change - Award points!
+                      
                         checkbox.addEventListener('change', function() {
                             const wasCompleted = task.completed;
                             task.completed = this.checked;
                             
-                            // Award 10 points when task is completed
+                            
                             if (task.completed && !wasCompleted) {
                                 points += 10;
                                 savePoints();
                                 updatePointsDisplay();
                                 showPointsAnimation(10);
                             }
-                            // Remove 10 points if unchecked
+                           
                             else if (!task.completed && wasCompleted) {
                                 points -= 10;
-                                if (points < 0) points = 0; // Don't go negative
+                                if (points < 0) points = 0; 
                                 savePoints();
                                 updatePointsDisplay();
                             }
@@ -110,7 +108,7 @@
 
                         editBtn.addEventListener('click', () => {
                             const newEditInput = prompt("Edit the task:", task.text);
-                            if (newEditInput === null) return; // User cancelled
+                            if (newEditInput === null) return; 
                             
                             const addNewEdit = newEditInput.trim();
                             if (addNewEdit === "") {
@@ -166,7 +164,7 @@
                 });
             });
             
-            // Initialize on page load
+         
             updatePointsDisplay();
             renderTasks();
         });
